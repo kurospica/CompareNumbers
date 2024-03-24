@@ -4,6 +4,7 @@
 <!-- TABLE OF CONTENTS -->
 
 ## 📌 Table of Contents
+未リリースなので現在はコードのみ
 
 
 ## 工夫したこと

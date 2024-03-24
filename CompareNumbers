@@ -1,0 +1,104 @@
+package gamesample;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class CompareNumbers {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // プレイヤー1とプレイヤー2の数字を格納するリストを作成
+        List<Integer> player1Numbers = new ArrayList<>();
+        List<Integer> player2Numbers = new ArrayList<>();
+        // 1〜100の数字のリストを作成し、シャッフル
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i <= 100; i++) {
+            numbers.add(i);
+        }
+        Collections.shuffle(numbers);
+        int player1Wins = 0; // プレイヤー1の勝利数
+        int player2Wins = 0; // プレイヤー2の勝利数
+        
+        // 3つの数字を各プレイヤーに割り当て
+        player1Numbers.addAll(numbers.subList(0, 3));
+        player2Numbers.addAll(numbers.subList(3, 6));
+        // プレイヤー1とプレイヤー2が交互に数字を選択し、比較
+        for (int round = 1; round <= 3; round++) {
+            System.out.println("Round " + round + ":");
+
+            System.out.println("Player 1の数字: " + player1Numbers);
+            //System.out.println("Player 2の数字: " + player2Numbers);
+
+            int choice1, choice2;
+            int number1 = 0, number2 = 0;
+            boolean validChoice1 = false, validChoice2 = false;
+
+            while (!validChoice1) {
+                try {
+                    // プレイヤー1の選択肢を表示
+                    System.out.print("プレイヤー1は、");
+                    for (int i = 0; i < player1Numbers.size(); i++) {
+                        System.out.print((i + 1) + ":" + player1Numbers.get(i) + ", ");
+                    }
+                    System.out.println("の中から選んでください。");
+
+                    // プレイヤー1の選択を受け取る
+                    choice1 = scanner.nextInt();
+                    number1 = player1Numbers.get(choice1 - 1); // インデックスの調整
+                    player1Numbers.remove(Integer.valueOf(number1)); // 選択された数字をリストから削除
+                    validChoice1 = true;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("無効な選択です。もう一度選択してください。");
+                    scanner.nextLine(); // 改行文字をクリアする
+                }
+            }
+
+            while (!validChoice2) {
+                try {
+                    // プレイヤー2の選択肢を表示
+                    System.out.print("プレイヤー2は、");
+                    for (int i = 0; i < player2Numbers.size(); i++) {
+                        System.out.print((i + 1) + ":" + player2Numbers.get(i) + ", ");
+                    }
+                    System.out.println("の中から選んでください。");
+
+                    // プレイヤー2の選択を受け取る
+                    choice2 = scanner.nextInt();
+                    number2 = player2Numbers.get(choice2 - 1); // インデックスの調整
+                    player2Numbers.remove(Integer.valueOf(number2)); // 選択された数字をリストから削除
+                    validChoice2 = true;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("無効な選択です。もう一度選択してください。");
+                    scanner.nextLine(); // 改行文字をクリアする
+                }
+            }
+            // 数字の比較
+            if (number1 > number2) {
+                System.out.println("Player 1の数字が大きいです。");
+                player1Wins++; // プレイヤー1の勝利数を増やす
+
+            } else if (number1 < number2) {
+                System.out.println("Player 2の数字が大きいです。");
+                player2Wins++; // プレイヤー2の勝利数を増やす
+            } else {
+                System.out.println("両プレイヤーの数字は同じです。");
+            }
+            // ラウンドの区切りを表示
+            System.out.println("---------------");
+        }
+        scanner.close();
+        
+        // 勝者を決定
+        if (player1Wins > player2Wins) {
+            System.out.println("プレイヤー1が勝利しました！");
+        } else if (player1Wins < player2Wins) {
+            System.out.println("プレイヤー2が勝利しました！");
+        } else {
+            System.out.println("引き分けです！");
+        }
+
+    }
+    
+}

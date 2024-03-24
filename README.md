@@ -1,6 +1,5 @@
 # 数字を比較するゲーム
 
-[README in Japanese](./docs/ja/README.md)
 
 <!-- TABLE OF CONTENTS -->
 
